@@ -1,0 +1,29 @@
+###############################################################################################
+# For help on syntax, variables and functions, please read the file: "plcSyntaxHelp.plc"
+#
+#  Workaround for NO limit switches.
+#
+#  Code Description:
+#     Low limit is connected to ec0.s1.INPIN_1
+#     High limit is connected to ec0.s1.INPIN_2
+#     ec0.s1.ONE.0 shall be used as low limit in axis cfg file
+#     ec0.s1.ONE.1 shall be used as high limit in axis cfg file
+# This workaround is needed since limits only can be linked to ethercat entries and NC switches (for safety reason)..
+# Use this or similar code in an axis plc or in a normal plc..
+#
+
+#Low limit: Use ec0.s1.ONE bit 0
+if(not(ec0.s1.INPIN_1)) {
+  ec0.s1.ONE:=ec_set_bit(ec0.s1.ONE,0);
+}
+else{
+  ec0.s1.ONE:=ec_clr_bit(ec0.s1.ONE,0);
+};
+
+#Low limit: Use ec0.s1.ONE bit 1 
+if(not(ec0.s1.INPIN_2)) {
+  ec0.s1.ONE:=ec_set_bit(ec0.s1.ONE,1);
+}
+else{
+  ec0.s1.ONE:=ec_clr_bit(ec0.s1.ONE,1);
+};
