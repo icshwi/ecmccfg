@@ -1,0 +1,4 @@
+ec0.s2.BO_6:=not(ec0.s2.BO_6);
+ec0.s2.BO_8:=ax1.enc.actpos>0;
+
+static.test:=ax1.enc.actpos;
