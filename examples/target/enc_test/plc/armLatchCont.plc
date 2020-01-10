@@ -1,0 +1,26 @@
+###############################################################################################
+# For help on syntax, variables and functions, please read the file: "plcSyntaxHelp.plc"
+#
+# PLC Functionality:
+#
+#   Code Description:
+#     1. Arm latch on index track. Push latched value  to data storage.
+
+var armValue:=1;
+
+# print out each new valid latched value (on c-track)
+if(ec_chk_bit(ec0.s1.ENC_STATUS,0) and not(static.oldLatchValid))
+{
+  println('New latched position: ' , ec0.s1.LATCH_POSITION);
+  static.errorcode:=ds_append_data(1, ec0.s1.LATCH_POSITION);
+  ds_push_asyn(1);  
+  armValue:= 0;
+};
+
+ec0.s1.ENC_CONTROL:=ec_wrt_bit(ec0.s1.ENC_CONTROL,0,armValue);  #Set/reset latch on C  
+
+static.oldLatchValid:=ec_chk_bit(ec0.s1.ENC_STATUS,0);
+
+return [];
+
+println('NEVER HERE');
