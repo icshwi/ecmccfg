@@ -17,7 +17,7 @@ if(ec_chk_bit(ec0.s1.ENC_STATUS,0) and not(static.oldLatchValid))
   armValue:= 0;
 };
 
-ec0.s1.ENC_CONTROL:=ec_wrt_bit(ec0.s1.ENC_CONTROL,0,armValue);  #Set/reset latch on C  
+ec0.s1.ENC_CONTROL:=ec_wrt_bit(ec0.s1.ENC_CONTROL,armValue,0);  #Set/reset latch on C  
 
 static.oldLatchValid:=ec_chk_bit(ec0.s1.ENC_STATUS,0);
 
