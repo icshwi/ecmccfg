@@ -1,7 +1,7 @@
 #-d /**
 #-d   \brief hardware script for EL2624
-#-d   \details 4-channel relay output terminal 125 V AC/30 V DC, potential-free contacts, power contacts are looped through.
-#-d   \author Markus Kristensson
+#-d   \details 4-channel relay output terminal 125 V AC/30 V DC, potential-free, normally open, with power contacts
+#-d   \author Thomas Fay
 #-d   \file
 #-d */
 
@@ -15,5 +15,3 @@ ecmcConfigOrDie "Cfg.EcAddEntryComplete(${ECMC_EC_SLAVE_NUM},${ECMC_EC_VENDOR_ID
 ecmcConfigOrDie "Cfg.EcAddEntryComplete(${ECMC_EC_SLAVE_NUM},${ECMC_EC_VENDOR_ID},${ECMC_EC_PRODUCT_ID},1,0,0x1601,0x7010,0x1,1,BO_2)"
 ecmcConfigOrDie "Cfg.EcAddEntryComplete(${ECMC_EC_SLAVE_NUM},${ECMC_EC_VENDOR_ID},${ECMC_EC_PRODUCT_ID},1,0,0x1602,0x7020,0x1,1,BO_3)"
 ecmcConfigOrDie "Cfg.EcAddEntryComplete(${ECMC_EC_SLAVE_NUM},${ECMC_EC_VENDOR_ID},${ECMC_EC_PRODUCT_ID},1,0,0x1603,0x7030,0x1,1,BO_4)"
-
-
