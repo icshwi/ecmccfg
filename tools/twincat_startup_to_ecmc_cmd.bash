@@ -19,8 +19,14 @@
 #   email   : anders.sandstrom@esss.se
 #   date    : Monday, February 17 08:06 2020
 #   version : 0.0.1
-
-# Examples of data rows from TwinCAT startyp list
+#
+# 
+# Script converts an exported twincat startup-list, in csv format, to an ecmc command file.
+# note: Only supports CoE protocol
+# Usage: cat <twincat_startup.csv> | twincat_startup_to_ecmc_cmd.bash | tee <ecmcFilename.cmd>
+#
+#
+# Examples of data rows from TwinCAT startup list
 # Transition;Protocol;Index;Data;Comment
 # <PS>;CoE;0x1A00 C 0;01 00 20 01 00 60;download pdo 0x1A00 entries
 # <PS>;CoE;0x1A01 C 0;03 00 01 01 10 60 07 00 00 00 08 00 00 00;download pdo 0x1A01 entries
@@ -33,16 +39,17 @@
 # PS;CoE;0x8010 C 1;00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 01 00;Object 8010
 # PS;CoE;0x8020 C 1;00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 01 00;Object 8020
 # PS;CoE;0x8030 C 1;00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 01 00;Object 8030
-# PS;CoE;0x8030:01;Ox00;Object 8030
+# PS;CoE;0x8030:01;0x00;Object 8030
 # PS;CoE;0x8030:10;FALSE;Object 8030
 # PS;CoE;0x8030:10;TRUE;Object 8030
 # PS;CoE;0x8030:10;TRUE;Object 8030
-# PS;CoE;0x8030:1;Ox0000;Object 8030
-# PS;CoE;0x8030:2;Ox00001234;Object 8030
+# PS;CoE;0x8030:1;0x0000;Object 8030
+# PS;CoE;0x8030:2;0x00001234;Object 8030
 
 PROTOCOL="CoE"
 COMPLETE_CMD="C"
 HEADER="Transition;Protocol;Index;Data;Comment"
+ECMC_CONFIG_CMD="ecmcConfigOrDie"
 
 # Convert dec to hex (including "0x")
 # Arg 1: Value in dec ("10")
@@ -134,14 +141,14 @@ function print_sdo_complete_cmd
 {
   local byte_size=$(get_sdo_comlete_byte_size "$sdo_data");
   if [ "$2" = "0x0" ] || [ "$2" = "0x00" ]; then
-    echo "ecmcConfigOrDie \"Cfg.EcAddSdoComplete(\${ECMC_EC_SLAVE_NUM},$1,$3,$byte_size)\""
+    echo "$ECMC_CONFIG_CMD \"Cfg.EcAddSdoComplete(\${ECMC_EC_SLAVE_NUM},$1,$3,$byte_size)\""
   else
-    echo "ecmcConfigOrDie \"Cfg.EcAddSdoBuffer(\${ECMC_EC_SLAVE_NUM},$1,$2,$3,$byte_size)\""
+    echo "$ECMC_CONFIG_CMD \"Cfg.EcAddSdoBuffer(\${ECMC_EC_SLAVE_NUM},$1,$2,$3,$byte_size)\""
   fi
 }
 
 # Printout sdo normal command
-# Use "EcAddSdoComplete" if subindex == 0  otherwise use "EcAddSdoBuffer()"
+# Use "EcAddSdo"
 # Arg 1: sdo_index
 # Arg 2: sdo_index_offset
 # Arg 3: sdo_data
@@ -149,7 +156,7 @@ function print_sdo_normal_cmd
 {
   local sdo_data_local=$(convert_sdo_binary_data "$3")
   local byte_size=$(get_sdo_normal_byte_size "$sdo_data_local");
-  echo "ecmcConfigOrDie \"Cfg.EcAddSdo(\${ECMC_EC_SLAVE_NUM},$1,$2,$sdo_data_local,$byte_size)\""
+  echo "$ECMC_CONFIG_CMD \"Cfg.EcAddSdo(\${ECMC_EC_SLAVE_NUM},$1,$2,$sdo_data_local,$byte_size)\""
 }
 
 # Get protocol (Column 2)
@@ -173,8 +180,19 @@ function is_header
   echo $1 | grep $HEADER | wc -l
 }
 
+###############################################################################
+# Main program start
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then    
+    echo "twincat_startup_to_ecmc_cmd.bash"
+    echo "Script to generate ecmc cmd file from TwinCAT startup list export csv file"
+    echo "Currently only CoE are supported"
+    echo "Usage:"
+    echo "cat <twincat_startup.csv> | twincat_startup_to_ecmc_cmd.bash | tee <ecmcFilename.cmd>"
+    exit 0
+fi
+
 i=0
-# Main loop
+
 while read line; do
   echo "#- "$line
 
@@ -186,7 +204,8 @@ while read line; do
 
   is_valid=$(is_valid_line $line)
   if [ "$is_valid" != "1" ]; then    
-    echo "#- Warning: Protocol, $(get_protocol $line), not supported"
+    #echo "#- Warning: Protocol," $(get_protocol $line) ", not supported"
+    echo "#- Warning: Protocol not supported"
     echo ""
     continue
   fi
