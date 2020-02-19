@@ -21,10 +21,10 @@
 
 
 #Configure CU1521-0010 EtherCAT Medienkonverter (Singlemode)
-#${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=0, HW_DESC=CU1521-0010"
+${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=0, HW_DESC=CU1521-0010"
 
 #Configure EK1501-0010 EtherCAT-Koppler (2A E-Bus, FX-SingleMode, ID-Switc
-#${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=1, HW_DESC=EK1501-0010"
+${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=1, HW_DESC=EK1501-0010"
 
 #Configure EL2502 PWM output
 ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=2, HW_DESC=EL2502"
