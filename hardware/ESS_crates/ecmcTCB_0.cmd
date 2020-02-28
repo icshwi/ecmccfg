@@ -1,7 +1,6 @@
 ############################################################
 ############# PRL TCB 0
 
-# 0  0:0   PREOP  +  CU1521-0010 EtherCAT Medienkonverter (Singlemode)
 # 1  0:1   PREOP  +  EK1501-0010 EtherCAT-Koppler (2A E-Bus, FX-SingleMode, ID-Switc
 # 2  0:2   PREOP  +  EL2502 2Ch. PWM output, 24V
 # 3  0:3   PREOP  +  EL2502 2Ch. PWM output, 24V
@@ -20,8 +19,6 @@
 #16  0:16  PREOP  +  EL3202-0010 2K. Ana. Eingang PT100 (RTD), hochgenau
 
 
-#Configure CU1521-0010 EtherCAT Medienkonverter (Singlemode)
-${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=0, HW_DESC=CU1521-0010"
 
 #Configure EK1501-0010 EtherCAT-Koppler (2A E-Bus, FX-SingleMode, ID-Switc
 ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=1, HW_DESC=EK1501-0010"
