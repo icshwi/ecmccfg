@@ -7,6 +7,8 @@ file "FC_MCU.template"
           {"$(P):PBI-FC-001", 0,     19,       "EL1808",   "BI1",    "$(MCU):LimitOut-RB"}
           {"$(P):PBI-FC-001", 0,     19,       "EL1808",   "BI3",    "$(MCU):WaterFlowinput-RB"}
           {"$(P):PBI-FC-001", 0,     19,       "EL1808",   "BI4",    "$(MCU):MovePermit-RB"}
-          {"$(P):PBI-FC-001", 0,     20,	  "EL2819",   "BO2",    "$(MCU):Move"}
-          {"$(P):PBI-FC-001", 0,     20,	  "EL2819",   "BO2-RB", "$(MCU):Move-RB"}
+          {"$(P):PBI-FC-001", 0,     20,       "EL2819",   "BO2",    "$(MCU):MoveIN"}
+          {"$(P):PBI-FC-001", 0,     20,       "EL2819",   "BO2-RB", "$(MCU):MoveIN-RB"}
+          {"$(P):PBI-FC-001", 0,     20,       "EL2819",   "BO3",    "$(MCU):MoveOUT"}
+          {"$(P):PBI-FC-001", 0,     20,       "EL2819",   "BO3-RB", "$(MCU):MoveOUT-RB"}
 }
