@@ -1,0 +1,64 @@
+##############################################################################
+## Example config ESS MEBT FC
+
+##############################################################################
+## Initiation:
+epicsEnvSet("IOC" ,"$(IOC="NCL:PBI-FC-001")")
+epicsEnvSet("ECMCCFG_INIT" ,"")  #Only run startup once (auto at PSI, need call at ESS), variable set to "#" in startup.cmd
+epicsEnvSet("SCRIPTEXEC" ,"$(SCRIPTEXEC="iocshLoad")")
+
+require ecmccfg Julen_BIlab
+
+# run module startup.cmd (only needed at ESS  PSI auto call at require)
+$(ECMCCFG_INIT)$(SCRIPTEXEC) ${ecmccfg_DIR}startup.cmd, "IOC=$(IOC),ECMC_VER=master,EthercatMC_VER=3.0.2,stream_VER=2.8.10"
+
+##############################################################################
+## Configure hardware:
+
+epicsEnvSet("ECMC_SLAVE_NUM",10)
+epicsEnvSet("ECMC_SLAVE_NUM_OFFSET",25)
+# ecmcEpicsEnvSetCalc("ECMC_SLAVE_NUM", "$(ECMC_SLAVE_NUM)+$(ECMC_SLAVE_NUM_OFFSET)")
+ecmcEpicsEnvSetCalc("ECMC_SLAVE_NUM", "$(ECMC_SLAVE_NUM)+$(ECMC_SLAVE_NUM_OFFSET)")
+epicsEnvShow("ECMC_SLAVE_NUM")
+#
+
+# Offset slave numbers
+epicsEnvSet("ECMC_SLAVE_NUM_OFFSET",1)
+epicsEnvSet("ECMC_SLAVE_NUM",0)
+#
+# Configure LEBT HW
+$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcFaradayCup.cmd
+
+#Configure MEBT HW
+ecmcEpicsEnvSetCalc("ECMC_SLAVE_NUM", "$(ECMC_SLAVE_NUM)+$(ECMC_SLAVE_NUM_OFFSET)")
+$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcFaradayCup.cmd
+
+#Configure DTL1 HW
+ecmcEpicsEnvSetCalc("ECMC_SLAVE_NUM", "$(ECMC_SLAVE_NUM)+$(ECMC_SLAVE_NUM_OFFSET)")
+$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcFaradayCup.cmd
+
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(2,BO_1,1)"
+
+dbLoadTemplate(FC_LEBT_HV.substitutions, "P=NCL, HV=LEBT-HV")
+dbLoadTemplate(FC_LEBT_MCU.substitutions, "P=NCL, MCU=LEBT-MCU")
+dbLoadTemplate(FC_MEBT_HV.substitutions, "P=NCL, HV=MEBT-HV")
+dbLoadTemplate(FC_MEBT_MCU.substitutions, "P=NCL, MCU=MEBT-MCU")
+dbLoadTemplate(FC_DTL1_HV.substitutions, "P=NCL, HV=DTL1-HV")
+dbLoadTemplate(FC_DTL1_MCU.substitutions, "P=NCL, MCU=DTL1-MCU")
+
+##############################################################################
+############# Configure diagnostics:
+
+ecmcConfigOrDie "Cfg.EcSetDiagnostics(1)"
+ecmcConfigOrDie "Cfg.EcEnablePrintouts(0)"
+ecmcConfigOrDie "Cfg.EcSetDomainFailedCyclesLimit(100)"
+#ecmcConfigOrDie "Cfg.SetDiagAxisIndex(1)"
+ecmcConfigOrDie "Cfg.SetDiagAxisFreq(2)"
+ecmcConfigOrDie "Cfg.SetDiagAxisEnable(0)"
+
+
+# go active
+$(SCRIPTEXEC) ($(ecmccfg_DIR)setAppMode.cmd)
+
+
+
