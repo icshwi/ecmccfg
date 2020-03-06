@@ -2,16 +2,16 @@ file "FC_HV.template"
 
 
 {
-  pattern {IOC,           MASTER_ID, SLAVE_POS, HWTYPE, CH_ID, DESC}
-          {"$(P):PBI-FC-001", 0,     4,       "EL3174_0to10V",   AI1,   "$(HV):Volt-RB"}
-          {"$(P):PBI-FC-001", 0,     4,       "EL3174_0to10V",   AI2,   "$(HV):Curr-RB"}
-          {"$(P):PBI-FC-001", 0,     5,       "EL4134",   AO1,   "$(HV):Volt"}
-          {"$(P):PBI-FC-001", 0,     5,	  "EL4134",   AO1-RB,"$(HV):Volt-RB"}
-          {"$(P):PBI-FC-001", 0,     5,       "EL4134",   AO2,   "$(HV):Curr"}
-          {"$(P):PBI-FC-001", 0,     5,	  "EL4134",   AO2-RB,"$(HV):Curr-RB"}
-          {"$(P):PBI-FC-001", 0,     7,	  "EL2124",   BO2,   "$(HV):Pol"}
-          {"$(P):PBI-FC-001", 0,     7,       "EL2124",   BO2-RB,"$(HV):Pol-RB"}
-          {"$(P):PBI-FC-001", 0,     7,	  "EL2124",   BO1,   "$(HV):Bias"}
-          {"$(P):PBI-FC-001", 0,     7,       "EL2124",   BO1-RB,"$(HV):Bias-RB"}
+  pattern {IOC,   MASTER_ID, SLAVE_POS, HWTYPE,         CH_ID,   DESC}
+          {"$(P)",   0,     4,       "EL3174_0to10V",   AI1,    "$(HV):Volt-RB"}
+          {"$(P)",   0,     4,       "EL3174_0to10V",   AI2,    "$(HV):Curr-RB"}
+          {"$(P)",   0,     5,       "EL4134",          AO1,    "$(HV):Volt"}
+          {"$(P)",   0,     5,       "EL4134",          AO1-RB, "$(HV):Volt-RB"}
+          {"$(P)",   0,     5,       "EL4134",          AO2,    "$(HV):Curr"}
+          {"$(P)",   0,     5,       "EL4134",          AO2-RB, "$(HV):Curr-RB"}
+          {"$(P)",   0,     7,       "EL2124",          BO2,    "$(HV):Pol"}
+          {"$(P)",   0,     7,       "EL2124",          BO2-RB, "$(HV):Pol-RB"}
+          {"$(P)",   0,     7,       "EL2124",          BO1,    "$(HV):Bias"}
+          {"$(P)",   0,     7,       "EL2124",          BO1-RB, "$(HV):Bias-RB"}
 }
 

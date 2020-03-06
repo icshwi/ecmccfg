@@ -1,5 +1,5 @@
 ##############################################################################
-## Example config ESS MEBT FC
+## Startup IOC for NCL Faraday Cup (LEBT, MEBT, DTL1 & DTL2)
 
 ##############################################################################
 ## Initiation:
@@ -15,36 +15,40 @@ $(ECMCCFG_INIT)$(SCRIPTEXEC) ${ecmccfg_DIR}startup.cmd, "IOC=$(IOC),ECMC_VER=mas
 ##############################################################################
 ## Configure hardware:
 
-epicsEnvSet("ECMC_SLAVE_NUM",10)
-epicsEnvSet("ECMC_SLAVE_NUM_OFFSET",25)
-# ecmcEpicsEnvSetCalc("ECMC_SLAVE_NUM", "$(ECMC_SLAVE_NUM)+$(ECMC_SLAVE_NUM_OFFSET)")
-ecmcEpicsEnvSetCalc("ECMC_SLAVE_NUM", "$(ECMC_SLAVE_NUM)+$(ECMC_SLAVE_NUM_OFFSET)")
-epicsEnvShow("ECMC_SLAVE_NUM")
-#
 
 # Offset slave numbers
 epicsEnvSet("ECMC_SLAVE_NUM_OFFSET",1)
 epicsEnvSet("ECMC_SLAVE_NUM",0)
 #
-# Configure LEBT HW
+# Configure LEBT FC HW
 $(SCRIPTEXEC) $(ecmccfg_DIR)ecmcFaradayCup.cmd
 
-#Configure MEBT HW
+#Configure MEBT FC HW
 ecmcEpicsEnvSetCalc("ECMC_SLAVE_NUM", "$(ECMC_SLAVE_NUM)+$(ECMC_SLAVE_NUM_OFFSET)")
 $(SCRIPTEXEC) $(ecmccfg_DIR)ecmcFaradayCup.cmd
 
-#Configure DTL1 HW
+#Configure DTL1 FC HW
 ecmcEpicsEnvSetCalc("ECMC_SLAVE_NUM", "$(ECMC_SLAVE_NUM)+$(ECMC_SLAVE_NUM_OFFSET)")
 $(SCRIPTEXEC) $(ecmccfg_DIR)ecmcFaradayCup.cmd
 
+#Configure DTL2 FC HW
+ecmcEpicsEnvSetCalc("ECMC_SLAVE_NUM", "$(ECMC_SLAVE_NUM)+$(ECMC_SLAVE_NUM_OFFSET)")
+$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcFaradayCup.cmd
+
+# Set 24 volts to Limit Switch common 
 ecmcConfigOrDie "Cfg.WriteEcEntryIDString(2,BO_1,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(11,BO_1,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(20,BO_1,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(29,BO_1,1)"
 
-dbLoadTemplate(FC_LEBT_HV.substitutions, "P=NCL, HV=LEBT-HV")
-dbLoadTemplate(FC_LEBT_MCU.substitutions, "P=NCL, MCU=LEBT-MCU")
-dbLoadTemplate(FC_MEBT_HV.substitutions, "P=NCL, HV=MEBT-HV")
-dbLoadTemplate(FC_MEBT_MCU.substitutions, "P=NCL, MCU=MEBT-MCU")
-dbLoadTemplate(FC_DTL1_HV.substitutions, "P=NCL, HV=DTL1-HV")
-dbLoadTemplate(FC_DTL1_MCU.substitutions, "P=NCL, MCU=DTL1-MCU")
+dbLoadTemplate(FC_LEBT_HV.substitutions,  "P=NCL:PBI-FC-001, HV=LEBT-010:PBI-FC-001")
+dbLoadTemplate(FC_LEBT_MCU.substitutions, "P=NCL:PBI-FC-001, MCU=LEBT-010:PBI-FC-001")
+dbLoadTemplate(FC_MEBT_HV.substitutions,  "P=NCL:PBI-FC-001, HV=MEBT-010:PBI-FC-001")
+dbLoadTemplate(FC_MEBT_MCU.substitutions, "P=NCL:PBI-FC-001, MCU=MEBT-010:PBI-FC-001")
+dbLoadTemplate(FC_DTL1_HV.substitutions,  "P=NCL:PBI-FC-001, HV=DTL-020:PBI-FC-001")
+dbLoadTemplate(FC_DTL1_MCU.substitutions, "P=NCL:PBI-FC-001, MCU=DTL-020:PBI-FC-001")
+dbLoadTemplate(FC_DTL2_HV.substitutions, "P=NCL:PBI-FC-001, HV=DTL-040:PBI-FC-001")
+dbLoadTemplate(FC_DTL2_MCU.substitutions,"P=NCL:PBI-FC-001, MCU=DTL-040:PBI-FC-001")
 
 ##############################################################################
 ############# Configure diagnostics:
