@@ -3,7 +3,7 @@
 
 ##############################################################################
 ## Initiation:
-epicsEnvSet("IOC" ,"$(IOC="icBLM")")
+epicsEnvSet("IOC" ,"$(IOC="Spk-010Row:PBI-ECAT-010")")
 epicsEnvSet("ECMCCFG_INIT" ,"")  #Only run startup once (auto at PSI, need call at ESS), variable set to "#" in startup.cmd
 epicsEnvSet("SCRIPTEXEC" ,"$(SCRIPTEXEC="iocshLoad")")
 
@@ -16,6 +16,8 @@ $(ECMCCFG_INIT)$(SCRIPTEXEC) ${ecmccfg_DIR}startup.cmd, "IOC=$(IOC),ECMC_VER=6.0
 ## Configure hardware:
 
 $(SCRIPTEXEC) $(ecmccfg_DIR)ecmcicBLM.cmd
+
+dbLoadTemplate(icBLM.substitutions,  "P=$(IOC), HV=$(IOC)")
 
 ##############################################################################
 ############# Configure diagnostics:

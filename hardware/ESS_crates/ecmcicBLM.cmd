@@ -13,10 +13,10 @@
 ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=0, HW_DESC=EK1100"
 
 #Configure EL3174 analog input configured to read 0 to 10V, NOTE: Use cutsom substitution file (ecmcEL7134_0to10V_FC.substitutions)! 
-${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=1, HW_DESC=EL3174_0to10V"
+${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=1, HW_DESC=EL3174_0to10V, SUBST_FILE=ecmcEL3174_0to10V_FC.substitutions"
 
 # Configure EL4134 analog output terminal 0-10V, NOTE: Use cutsom substitution file (ecmcEL4134_FC.substitutions)!
-${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=2, HW_DESC=EL4134"
+${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=2, HW_DESC=EL4134, SUBST_FILE=ecmcEL4134_FC.substitutions"
 
 # Configure EL9505 power supply 5V
 ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=3, HW_DESC=EL9505"

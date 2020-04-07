@@ -1,0 +1,1 @@
+alias("$(IOC):ec$(MASTER_ID)-s$(SLAVE_POS)-$(HWTYPE)-$(CH_ID)","$(DESC)")
