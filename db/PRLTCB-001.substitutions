@@ -1,0 +1,7 @@
+file "PRLTCB-001.template"
+
+
+{
+  pattern {IOC,     MASTER_ID, SLAVE_POS, HWTYPE,           CH_ID, DESC}
+          {"$(P)",    0,     $(EK1501_POS),       "EK1501-0010",   ID,   "$(P):$(CRATE_ID)"}
+}

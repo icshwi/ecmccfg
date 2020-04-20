@@ -1,0 +1,145 @@
+##############################################################################
+## Startup script for the Phase Reference Line EtherCAT control 
+
+##############################################################################
+## Initiation:
+epicsEnvSet("IOC" ,"$(IOC="PRL")")
+epicsEnvSet("ECMCCFG_INIT" ,"")  #Only run startup once (auto at PSI, need call at ESS), variable set to "#" in startup.cmd
+epicsEnvSet("SCRIPTEXEC" ,"$(SCRIPTEXEC="iocshLoad")")
+
+require ecmccfg Julen_prl
+require prlpid Julen_PRL
+require calc 3.7.3
+require std 3.6.1
+
+# run module startup.cmd (only needed at ESS  PSI auto call at require)
+$(ECMCCFG_INIT)$(SCRIPTEXEC) ${ecmccfg_DIR}startup.cmd, "IOC=$(IOC),ECMC_VER=master,EthercatMC_VER=3.0.2,stream_VER=2.8.10"
+
+################################################################################
+########Set EtherCAT bus startup timeout command added (defaults to 30seconds):
+
+“Cfg.SetEcStartupTimeout(100)”
+##############################################################################
+## Configure hardware:
+
+epicsEnvSet("ECMC_SLAVE_NUM",0)
+epicsEnvShow("ECMC_SLAVE_NUM")
+
+#Configure CU1521-0010 EtherCAT Medienkonverter (Singlemode)
+${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=$(ECMC_SLAVE_NUM), HW_DESC=CU1521-0010"
+
+$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcTCB.cmd
+epicsEnvSet("TCB1_EK1501_POS",1)
+epicsEnvShow("TCB1_EK1501_POS")
+#$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcTCB.cmd
+#epicsEnvSet("TCB2_EK1501_POS",17)
+#epicsEnvShow("TCB2_EK1501_POS")
+#$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcTCB.cmd
+#epicsEnvSet("TCB3_EK1501_POS",33)
+#epicsEnvShow("TCB3_EK1501_POS")
+#$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcTCB.cmd
+#epicsEnvSet("TCB4_EK1501_POS",49)
+#epicsEnvShow("TCB4_EK1501_POS")
+#$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcTCB.cmd
+#epicsEnvSet("TCB5_EK1501_POS",65)
+#epicsEnvShow("TCB5_EK1501_POS")
+#$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcTCB_5.cmd
+#$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcTCB_6.cmd
+#$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcTCB_7.cmd
+#$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcTCB_8.cmd
+#$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcTCB_9.cmd
+#$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcTCB_10.cmd
+#$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcTCB_11.cmd
+#$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcTCB_12.cmd
+
+
+#Apply hardware configuration
+ecmcConfigOrDie "Cfg.EcApplyConfig(1)"
+
+##############################################################################
+############# Configure diagnostics:
+
+ecmcConfigOrDie "Cfg.EcSetDiagnostics(1)"
+ecmcConfigOrDie "Cfg.EcEnablePrintouts(0)"
+ecmcConfigOrDie "Cfg.EcSetDomainFailedCyclesLimit(100)"
+#ecmcConfigOrDie "Cfg.SetDiagAxisIndex(1)"
+ecmcConfigOrDie "Cfg.SetDiagAxisFreq(2)"
+ecmcConfigOrDie "Cfg.SetDiagAxisEnable(0)"
+
+# go active
+$(SCRIPTEXEC) ($(ecmccfg_DIR)setAppMode.cmd)
+
+##############################################################################
+## Read pdo data from EK1501-0010 (from ec0.s0.ID) result in "ECMC_CONFIG_RETURN_VAL"
+ecmcConfig "ReadEcEntryIDString($(TCB1_EK1501_POS),ID)"
+## This is the value of the EK1101 ID switch
+epicsEnvShow(ECMC_CONFIG_RETURN_VAL)
+## Apply alias to records
+dbLoadTemplate(PRLTCB-001.substitutions,"P=PRL , EK1501_POS=$(TCB1_EK1501_POS), CRATE_ID=$(ECMC_CONFIG_RETURN_VAL)")
+ecmcFileExist(PRLTCB-001.substitutions)
+
+##############################################################################
+## Read pdo data from EK1501-0010 (from ec0.s0.ID) result in "ECMC_CONFIG_RETURN_VAL"
+#ecmcConfig "ReadEcEntryIDString($(TCB2_EK1501_POS),ID)"
+## This is the value of the EK1101 ID switch
+#epicsEnvShow(ECMC_CONFIG_RETURN_VAL)
+## Apply alias to records
+#dbLoadTemplate(PRLTCB-001.substitutions,"P=PRL ,EK1501_POS=$(TCB2_EK1501_POS), CRATE_ID=$(ECMC_CONFIG_RETURN_VAL)")
+
+
+##############################################################################
+## Read pdo data from EK1501-0010 (from ec0.s0.ID) result in "ECMC_CONFIG_RETURN_VAL"
+#ecmcConfig "ReadEcEntryIDString($(TCB3_EK1501_POS),ID)"
+## This is the value of the EK1101 ID switch
+#epicsEnvShow(ECMC_CONFIG_RETURN_VAL)
+## Apply alias to records
+#dbLoadTemplate(PRLTCB-001.substitutions,"P=PRL ,EK1501_POS=$(TCB3_EK1501_POS), CRATE_ID=$(ECMC_CONFIG_RETURN_VAL)")
+
+
+##############################################################################
+## Read pdo data from EK1501-0010 (from ec0.s0.ID) result in "ECMC_CONFIG_RETURN_VAL"
+#ecmcConfig "ReadEcEntryIDString($(TCB4_EK1501_POS),ID)"
+## This is the value of the EK1101 ID switch
+#epicsEnvShow(ECMC_CONFIG_RETURN_VAL)
+## Apply alias to records
+#dbLoadTemplate(PRLTCB-001.substitutions,"P=PRL ,EK1501_POS=$(TCB4_EK1501_POS), CRATE_ID=$(ECMC_CONFIG_RETURN_VAL)")
+
+##############################################################################
+## Read pdo data from EK1501-0010 (from ec0.s0.ID) result in "ECMC_CONFIG_RETURN_VAL"
+#ecmcConfig "ReadEcEntryIDString($(TCB5_EK1501_POS),ID)"
+## This is the value of the EK1101 ID switch
+#epicsEnvShow(ECMC_CONFIG_RETURN_VAL)
+## Apply alias to records
+#dbLoadTemplate(PRLTCB-001.substitutions,"P=PRL ,EK1501_POS=$(TCB5_EK1501_POS), CRATE_ID=$(ECMC_CONFIG_RETURN_VAL)")
+
+
+# Set paramaters
+epicsEnvSet("P",    "PRL")
+epicsEnvSet("R",    "1")
+epicsEnvSet("SLAVE_NUM", 10) # probably change this to be loaded in ecmcPRL
+epicsEnvSet("HW_TYPE_IN", "EL3202") # same as above
+epicsEnvSet("INP",    "$(P):ec$(ECMC_EC_MASTER_ID)-s$(SLAVE_NUM)-$(HW_TYPE_IN)-AI")
+epicsEnvSet("INPA",    "$(INP)1")
+epicsEnvSet("INPB",    "$(INP)2")
+
+epicsEnvSet("HW_TYPE_OUT", "EL2502") #
+epicsEnvSet("SLAVE_NUM_OUT", "2") #
+epicsEnvSet("OUT", "$(ECMC_PREFIX)ec$(ECMC_EC_MASTER_ID)-s$(SLAVE_NUM_OUT)-$(HW_TYPE_OUT)-BO1")
+epicsEnvSet("LOW","0")
+epicsEnvSet("HIGH","100")
+epicsEnvSet("PREC","6")
+epicsEnvSet("KP","6")
+epicsEnvSet("KI","0.007194")
+epicsEnvSet("KD","0.0")
+epicsEnvSet("SCAN",".5 second")
+
+dbLoadTemplate(prl-pid_2ch.template, "P=$(P), R=$(R), INPA=$(INPA), INPB=$(INPA), OUT=$(OUT), LOPR=$(LOW), HOPR=$(HIGH), DRVL=$(LOW), DRVH=$(HIGH), PREC=$(PREC), KP=$(KP), KI=$(KI), KD=$(KD), SCAN=$(SCAN)")
+ecmcFileExist(prl-pid_2ch.template)
+
+dbLoadTemplate(prl-pid_2ch.substitutions, "P=$(P), R=$(R), INPA=$(INPA), INPB=$(INPA), OUT=$(OUT), LOPR=$(LOW), HOPR=$(HIGH), DRVL=$(LOW), DRVH=$(HIGH), PREC=$(PREC), KP=$(KP), KI=$(KI), KD=$(KD), SCAN=$(SCAN)")
+ecmcFileExist(prl-pid_2ch.substitutions)
+
+
+
+iocInit
+

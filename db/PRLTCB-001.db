@@ -1,0 +1,2 @@
+alias("$(P):ec0-s$(EK1501_POS)-EK1501-0010-ID","$(P):$(CRATE_ID)")
+

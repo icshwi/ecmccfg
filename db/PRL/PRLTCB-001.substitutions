@@ -1,0 +1,7 @@
+file "PRLTCB-001.template"
+
+
+{
+  pattern {IOC,     MASTER_ID, SLAVE_POS, HWTYPE,           CH_ID, DESC}
+          {"$(P)",    0,     1,       "EK1501-0010",   ID,   "$(P):$(ECMC_CONFIG_RETURN_VAL)"}
+}
