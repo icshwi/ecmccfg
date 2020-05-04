@@ -1,0 +1,22 @@
+ 0  0:0   PREOP  +  EK1100 EtherCAT-Koppler (2A E-Bus)
+ 1  0:1   PREOP  +  EL1018 8K. Dig. Eingang 24V, 10탎
+ 2  0:2   PREOP  +  EL1018 8K. Dig. Eingang 24V, 10탎
+ 3  0:3   PREOP  +  EL2808 8K. Dig. Ausgang 24V, 0.5A
+ 4  0:4   OP     +  EL2808 8K. Dig. Ausgang 24V, 0.5A
+ 5  0:5   OP     +  EL5101 1K. Inc. Encoder 5V
+ 6  0:6   OP     +  EL5101 1K. Inc. Encoder 5V
+ 7  0:7   OP     +  EL7047 1K. Schrittmotor-Endstufe (50V, 5A)
+ 8  0:8   OP     +  EL7047 1K. Schrittmotor-Endstufe (50V, 5A)
+ 9  0:9   OP     +  EL3004 4K.Ana. Eingang  +/-10V
+10  0:10  OP     +  EL4004 4K. Ana. Ausgang 0-10V, 12bit
+11  0:11  OP     +  EL9505 Netzteilklemme 5V
+12  0:12  OP     +  EL2124 4K. Dig. Ausgang 5V, 20mA
+13  0:13  OP     +  EK1100 EtherCAT Coupler (2A E-Bus)
+14  0:14  OP     +  EL1018 8K. Dig. Eingang 24V, 10탎
+15  0:15  OP     +  EL1018 8K. Dig. Eingang 24V, 10탎
+16  0:16  OP     +  EL2808 8K. Dig. Ausgang 24V, 0.5A
+17  0:17  OP     +  EL2808 8K. Dig. Ausgang 24V, 0.5A
+18  0:18  OP     +  EL5101 1K. Inc. Encoder 5V
+19  0:19  OP     +  EL5101 1K. Inc. Encoder 5V
+20  0:20  OP     +  EL7047 1K. Schrittmotor-Endstufe (50V, 5A)
+21  0:21  OP     +  EL7047 1K. Schrittmotor-Endstufe (50V, 5A)

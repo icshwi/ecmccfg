@@ -3,7 +3,7 @@
 
 ##############################################################################
 ## Initiation:
-epicsEnvSet("IOC" ,"$(IOC="IOC2")")
+epicsEnvSet("IOC" ,"$(IOC="MEBT-EMU")")
 epicsEnvSet("ECMCCFG_INIT" ,"")  #Only run startup once (auto at PSI, need call at ESS), variable set to "#" in startup.cmd
 epicsEnvSet("SCRIPTEXEC" ,"$(SCRIPTEXEC="iocshLoad")")
 
@@ -21,20 +21,8 @@ $(SCRIPTEXEC) $(ecmccfg_DIR)ecmcMEBT_EMU.cmd
 # Set all outputs to feed switches
 ecmcConfigOrDie "Cfg.WriteEcEntryIDString(16,BO_1,1)"
 ecmcConfigOrDie "Cfg.WriteEcEntryIDString(16,BO_2,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(16,BO_3,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(16,BO_4,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(16,BO_5,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(16,BO_6,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(16,BO_7,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(16,BO_8,1)"
 ecmcConfigOrDie "Cfg.WriteEcEntryIDString(17,BO_1,1)"
 ecmcConfigOrDie "Cfg.WriteEcEntryIDString(17,BO_2,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(17,BO_3,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(17,BO_4,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(17,BO_5,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(17,BO_6,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(17,BO_7,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(17,BO_8,1)"
 
 # END of ADDITIONAL SETUP
 
