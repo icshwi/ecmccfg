@@ -85,3 +85,6 @@ ecmcConfigOrDie "Cfg.SetDiagAxisEnable(0)"
 
 # go active
 $(SCRIPTEXEC) ($(ecmccfg_DIR)setAppMode.cmd)
+
+
+dbl > PV_list.txt

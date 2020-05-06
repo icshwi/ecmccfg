@@ -35,16 +35,16 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=4, HW_DESC=EL7047, CON
 ${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=5, HW_DESC=EL7047, CONFIG=-Motor-AMS-AM23-239-3"
 
 #Configure EL7041-0052 stepper drive terminal, motor 1 for cavity tuner
-${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=6, HW_DESC=EL7041-0052, CONFIG=-Motor-VSS-32.200.1.2"
+${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=6, HW_DESC=EL7041-0052, CONFIG=-Motor-VSS-52.200.2.5"
 
 #Configure EL7041 stepper drive terminal, motor 2 for cavity tuner
-${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=7, HW_DESC=EL7041, CONFIG=-Motor-VSS-32.200.1.2"
+${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=7, HW_DESC=EL7041, CONFIG=-Motor-VSS-52.200.2.5"
 
 #Configure EL7041 stepper drive terminal, motor 3 for cavity tuner
-${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=8, HW_DESC=EL7041, CONFIG=-Motor-VSS-32.200.1.2"
+${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=8, HW_DESC=EL7041, CONFIG=-Motor-VSS-52.200.2.5"
 
 #Configure EL7041-0052 stepper drive terminal, motor 4 for cavity tuner
-${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=9, HW_DESC=EL7041-0052, CONFIG=-Motor-VSS-32.200.1.2"
+${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=9, HW_DESC=EL7041-0052, CONFIG=-Motor-VSS-52.200.2.5"
 
 
 #Apply hardware configuration
