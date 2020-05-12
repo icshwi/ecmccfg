@@ -1,0 +1,112 @@
+###############################################################################################
+# For help on syntax, variables and functions, please read the file: "plcSyntaxHelp.plc"
+#
+# PLC Functionality Demo:
+#
+#   Code Description:
+#     1. Enable power on all axes (mc_power())
+#     2. Home at startup if needed (mc_home())
+#     3. Move to position 120 (mc_move_abs())
+#     4. Move to position -10 (mc_move_abs())
+#     5. Stop sequence if limit switch violation or errorCode on motion blocks
+#     
+
+var errorCode:=0;
+
+##### 0. Put all initiations here
+if(plc0.firstscan){  
+  println('Starting PLC motion example!!');
+  #Ignore commands during startup sequence
+  ax2.blockcom:=1;
+  static.seqStep:=1;
+  static.cycleCounter:=0;
+  static.epicsDisableSeq:=0;
+};
+
+if(static.epicsDisableSeq){
+  static.seqStep:=100;  #invalid
+};
+
+if(static.seqStep==1) 
+{	
+  	if(not(ax1.error))
+  	{
+    	errorCode=mc_power(1,1);
+    	if(errorCode)
+    	{
+      		println('Function mc_power() returned error: ', errorCode);
+      		plc0.error:=errorCode;
+    	};
+  	}
+  	else
+  	{
+    	ax1.reset:=1;
+  	};
+
+
+	if(not(ax2.error))
+  	{
+    	errorCode=mc_power(2,1);
+    	if(errorCode)
+    	{
+      		println('Function mc_power() returned error: ', errorCode);
+      		plc0.error:=errorCode;
+    	};
+  	}
+  	else
+  	{
+    	ax2.reset:=1;
+  	};
+	if(not(ax3.error))
+  	{
+    	errorCode=mc_power(3,1);
+    	if(errorCode)
+    	{
+      		println('Function mc_power() returned error: ', errorCode);
+      		plc0.error:=errorCode;
+   		};
+ 	}
+  	else
+  	{
+   	ax1.reset:=3;
+  	};
+  	if(not(ax4.error))
+  	{
+    	errorCode=mc_power(4,1);
+    	if(errorCode)
+    	{
+      		println('Function mc_power() returned error: ', errorCode);
+      		plc0.error:=errorCode;
+    	};
+  	}
+  	else
+  	{
+    	ax4.reset:=1;
+  	};
+	if(not(ax5.error))
+  	{
+    	errorCode=mc_power(5,1);
+    	if(errorCode)
+    	{
+      		println('Function mc_power() returned error: ', errorCode);
+      		plc0.error:=errorCode;
+    	};
+  	}
+  	else
+  	{
+    	ax5.reset:=1;
+  	};
+  	if(not(ax6.error))
+  	{
+    	errorCode=mc_power(6,1);
+    	if(errorCode)
+    	{
+      		println('Function mc_power() returned error: ', errorCode);
+      	plc0.error:=errorCode;
+    	};
+  	}
+  	else
+  	{
+    	ax2.reset:=1;
+  	};
+};
