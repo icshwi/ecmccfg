@@ -4,11 +4,17 @@
 # PLC Functionality Demo:
 #
 #   Code Description:
-#     1. Enable power on axis (mc_power())
-#     2. Home at startup if needed (mc_home())
-#     3. Move to position 120 (mc_move_abs())
-#     4. Move to position -10 (mc_move_abs())
-#     5. Stop sequence if limit switch violation or errorCode on motion blocks
+#     1. Check if EMU axes are in Low Limit Switch Position and properly homed. When this is tru the procedure is finished
+#        1.a: if they are not homed and in the LLS, find out which oner is not placed
+#        1.b: If axis 2 is not in place go to step 2, if axis 1 is inot in places go to step 6
+#     2. Enable axis 2
+#     3. Start home procedure for Axis 2
+#     4. Move the Axis 2 to LLS
+#     5. Make sure axis 2 is in LLS
+#     6. Enable Axis 1
+#     7. Start home procedure for Axis 1
+#     8. Move the Axis 1 to LLS
+#     9. Make sure Axis 1 is in LLS
 #     
 
 var errorCode:=0;
