@@ -64,8 +64,16 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=19, HW_DESC=EL5101"
 #Configure EL7047 stepper drive terminal, motor 1 GRID
 ${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=20, HW_DESC=EL7047, CONFIG=-Motor-Leadshine-57HS09"
 
+############# Configure hardware interlock on drive for motor 1 GRID:
+# Set function of input 1 to "Enable hardware"
+ecmcConfigOrDie "Cfg.EcAddSdo(${ECMC_EC_SLAVE_NUM},0x8012,0x32,1,1)"
+
 #Configure EL7047 stepper drive terminal, motor 2 GRID
 ${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=21, HW_DESC=EL7047, CONFIG=-Motor-Leadshine-57HS09"
+
+############# Configure hardware interlock on drive for motor 2 GRID:
+# Set function of input 1 to "Enable hardware"
+ecmcConfigOrDie "Cfg.EcAddSdo(${ECMC_EC_SLAVE_NUM},0x8012,0x32,1,1)"
 
 #Apply hardware configuration
 ecmcConfigOrDie "Cfg.EcApplyConfig(1)"
