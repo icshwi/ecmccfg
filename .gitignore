@@ -17,7 +17,7 @@ core.*
 *.d
 O.*
 ecmccfg.Makefile
-db/*/*.db
+db/**/*.db
 db/ecmcDS.db
 db/empty.db
 db/testAIs.db
