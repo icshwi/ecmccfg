@@ -22,6 +22,9 @@ $(SCRIPTEXEC) $(ecmccfg_DIR)ecmcSCL_WS.cmd
 ecmcConfigOrDie "Cfg.WriteEcEntryIDString(2,BO_1,1)"
 ecmcConfigOrDie "Cfg.WriteEcEntryIDString(2,BO_2,1)"
 ecmcConfigOrDie "Cfg.WriteEcEntryIDString(2,BO_3,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(2,BO_5,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(2,BO_6,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(2,BO_7,1)"
 
 # END of ADDITIONAL SETUP
 
