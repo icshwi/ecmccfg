@@ -62,6 +62,10 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=13, HW_DESC=EL7041-005
 
 #Configure EL7041-0052 stepper drive terminal, motor 3
 ${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=14, HW_DESC=EL7041-0052, CONFIG=-Motor-Nanotec-ST4118L1804-B"
+# Configure hardware interlock on drive for motor 3
+# Set function of input 1 to "Enable hardware"
+ecmcConfigOrDie "Cfg.EcAddSdo(${ECMC_EC_SLAVE_NUM},0x8012,0x32,1,1)"
+# ECMC_EC_SLAVE_NUM is set by the last call to configureSlave.cmd, if this is moved from here (maybe to startup.script, but I don't know if this needs to go before ecmcConfigOrDie "Cfg.EcApplyConfig(1)", maybe this is the case)
 
 #Apply hardware configuration
 ecmcConfigOrDie "Cfg.EcApplyConfig(1)"
