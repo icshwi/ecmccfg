@@ -19,6 +19,9 @@ $(SCRIPTEXEC) $(ecmccfg_DIR)ecmcImaging.cmd
 
 # ADDITIONAL SETUP
 # Set all outputs to feed switches
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(2,BO_1,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(2,BO_2,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(2,BO_3,1)"
 #ecmcConfigOrDie "Cfg.WriteEcEntryIDString(3,BO_1,1)"
 #ecmcConfigOrDie "Cfg.WriteEcEntryIDString(3,BO_2,1)"
 #ecmcConfigOrDie "Cfg.WriteEcEntryIDString(3,BO_5,1)"
