@@ -29,6 +29,9 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=7, HW_DESC=EL9410"
 #Configure EL7041-0052 stepper drive terminal, motor 1 
 ${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=8, HW_DESC=EL7041-0052, CONFIG=-Motor-Mclennan-23HSX206"
 
+#Max full step freq = 8000Hz (setting is 3)
+ecmcConfigOrDie "Cfg.EcAddSdo(${ECMC_EC_SLAVE_NUM},0x8012,0x5,3,1)"
+
 #Configure EL7041-0052 stepper drive terminal, motor 2
 ${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=9, HW_DESC=EL7041-0052, CONFIG=-Motor-Mclennan-23HSX206"
 

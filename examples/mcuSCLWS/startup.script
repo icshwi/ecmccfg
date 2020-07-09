@@ -39,7 +39,7 @@ $(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/linear_1.ax)
 ## AXIS 2
 #
 #epicsEnvSet("DEV",      "$(IOC)")
-#$(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/linear_2.ax)
+#(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/linear_2.ax)
 
 ##############################################################################
 ############# Configure diagnostics:

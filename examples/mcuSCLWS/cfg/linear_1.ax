@@ -22,7 +22,7 @@ epicsEnvSet("ECMC_EC_ENC_ACTPOS",         "ec0.s3.POSITION")          # Ethercat
 
 #Drive
 epicsEnvSet("ECMC_DRV_TYPE"               "0")                        # Stepper: 0. DS402: 1 (DS402 = servos and advanced stepper drives)
-epicsEnvSet("ECMC_DRV_SCALE_NUM"          "4.0")                    # Fastest speed in engineering units
+epicsEnvSet("ECMC_DRV_SCALE_NUM"          "16.0")                    # Fastest speed in engineering units
 epicsEnvSet("ECMC_DRV_SCALE_DENOM"        "32768.0")                  # I/O range for ECMC_EC_ALIAS_DRV_VELO_SET
 epicsEnvSet("ECMC_EC_DRV_CONTROL",        "ec0.s8.STM_CONTROL.0")     # Ethercat entry for control word or bit output
 epicsEnvSet("ECMC_EC_DRV_STATUS",         "ec0.s8.STM_STATUS.1")      # Ethercat entry for status word or bit input
@@ -33,12 +33,12 @@ epicsEnvSet("ECMC_DRV_BRAKE_OPEN_DLY_TIME",    "0")                   # Brake ti
 epicsEnvSet("ECMC_DRV_BRAKE_CLOSE_AHEAD_TIME", "0")                   # Brake timing parameter in cycles (default 1kHz)
 
 #Trajectory
-epicsEnvSet("ECMC_VELO",                  "3.0")
-epicsEnvSet("ECMC_JOG_VEL",               "3")
+epicsEnvSet("ECMC_VELO",                  "10.0")
+epicsEnvSet("ECMC_JOG_VEL",               "10")
 epicsEnvSet("ECMC_JAR",                   "0.0")                      # JAR defaults to VELO/ACCL
 epicsEnvSet("ECMC_ACCL",                  "0.1")
 epicsEnvSet("ECMC_EMERG_DECEL",           "${ECMC_ACCL}")             # Emergency deceleration
-epicsEnvSet("ECMC_MRES",                  "0.001")
+epicsEnvSet("ECMC_MRES",                  "0.01")#"0.001")
 
 #Homing
 epicsEnvSet("ECMC_HOME_PROC",             "$(SM_HOMEPROC=3)")
@@ -67,8 +67,8 @@ epicsEnvSet("ECMC_SOFT_HIGH_LIM",         "$(SM_DHLM=0)")
 epicsEnvSet("ECMC_DXLM_ENABLE",           "0")
 
 # Position lag
-epicsEnvSet("ECMC_MON_LAG_MON_TOL",       "0.5")
-epicsEnvSet("ECMC_MON_LAG_MON_TIME",      "10")
+epicsEnvSet("ECMC_MON_LAG_MON_TOL",       "2")#"0.5")
+epicsEnvSet("ECMC_MON_LAG_MON_TIME",      "100")#"10")
 epicsEnvSet("ECMC_MON_LAG_MON_ENA",       "1")
 
 # At target
