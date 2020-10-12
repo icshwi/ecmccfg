@@ -17,7 +17,7 @@ epicsEnvSet("SYS", "SYS")
 epicsEnvSet("SUB", "SUB")
 epicsEnvSet("DIS", "DIS")
 epicsEnvSet("DEV", "DEV")
-epicsEnvSet("IDX", "0")
+epicsEnvSet("IDX", "000")
 
 ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}")
 epicsEnvSet("ECMC_PREFIX" ,"${SYS}-${SUB}:${DIS}-${DEV}-${IDX}:")
@@ -27,7 +27,7 @@ epicsEnvSet("ECMC_PREFIX" ,"${SYS}-${SUB}:${DIS}-${DEV}-${IDX}:")
 
 #Configure EK1100 coupler terminal
 epicsEnvSet(ECMC_EC_SLAVE_NUM,${ECMC_EC_SLAVE_NUM=0})
-ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}")
+ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}",%03d)
 epicsEnvSet("DEV", "ECATC")
 epicsEnvSet("ECMC_PREFIX" ,"${SYS}-${SUB}:${DIS}-${DEV}-${IDX}:")
 ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=${ECMC_EC_SLAVE_NUM}, HW_DESC=EK1100"
@@ -35,9 +35,8 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=${ECMC_EC_SLAVE_NUM}, HW_DES
 
 #Configure EL1018 digital input terminal
 ecmcEpicsEnvSetCalc(ECMC_EC_SLAVE_NUM, "${ECMC_EC_SLAVE_NUM}+1")
-
 epicsEnvSet(ECMC_EC_SLAVE_NUM,${ECMC_EC_SLAVE_NUM=0})
-ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}")
+ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}",%03d)
 epicsEnvSet("DEV", "ECATIO")
 epicsEnvSet("ECMC_PREFIX" ,"${SYS}-${SUB}:${DIS}-${DEV}-${IDX}:")
 ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=${ECMC_EC_SLAVE_NUM}, HW_DESC=EL1018"
@@ -45,9 +44,8 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=${ECMC_EC_SLAVE_NUM}, HW_DES
 #Configure EL2808 digital output terminal
 ecmcEpicsEnvSetCalc(ECMC_EC_SLAVE_NUM, "${ECMC_EC_SLAVE_NUM}+1")
 epicsEnvShow("ECMC_EC_SLAVE_NUM")
-
 epicsEnvSet(ECMC_EC_SLAVE_NUM,${ECMC_EC_SLAVE_NUM=0})
-ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}")
+ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}",%03d)
 epicsEnvSet("DEV", "ECATIO")
 epicsEnvSet("ECMC_PREFIX" ,"${SYS}-${SUB}:${DIS}-${DEV}-${IDX}:")
 ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=${ECMC_EC_SLAVE_NUM}, HW_DESC=EL2808"
@@ -58,7 +56,7 @@ epicsEnvSet("ECMC_EC_SLAVE_NUM_DIG_OUT", "${ECMC_EC_SLAVE_NUM}")
 #Configure EL5002 2-channel SSI encoder terminal, motor 1
 ecmcEpicsEnvSetCalc(ECMC_EC_SLAVE_NUM, "${ECMC_EC_SLAVE_NUM}+1")
 epicsEnvSet(ECMC_EC_SLAVE_NUM,${ECMC_EC_SLAVE_NUM=0})
-ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}")
+ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}",%03d)
 epicsEnvSet("DEV", "ECATIO")
 epicsEnvSet("ECMC_PREFIX" ,"${SYS}-${SUB}:${DIS}-${DEV}-${IDX}:")
 ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=${ECMC_EC_SLAVE_NUM}, HW_DESC=EL5002"
@@ -72,7 +70,7 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}applySlaveConfig.cmd "CONFIG=-Encoder-ch2-Baumer-BMM
 # Configure EL9505 Power supply terminal 5V
 ecmcEpicsEnvSetCalc(ECMC_EC_SLAVE_NUM, "${ECMC_EC_SLAVE_NUM}+1")
 epicsEnvSet(ECMC_EC_SLAVE_NUM,${ECMC_EC_SLAVE_NUM=0})
-ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}")
+ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}",%03d)
 epicsEnvSet("DEV", "ECATIO")
 epicsEnvSet("ECMC_PREFIX" ,"${SYS}-${SUB}:${DIS}-${DEV}-${IDX}:")
 ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=${ECMC_EC_SLAVE_NUM}, HW_DESC=EL9505"
@@ -80,7 +78,7 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=${ECMC_EC_SLAVE_NUM}, HW_DES
 # Configure EL1252 digital input terminal
 ecmcEpicsEnvSetCalc(ECMC_EC_SLAVE_NUM, "${ECMC_EC_SLAVE_NUM}+1")
 epicsEnvSet(ECMC_EC_SLAVE_NUM,${ECMC_EC_SLAVE_NUM=0})
-ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}")
+ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}",%03d)
 epicsEnvSet("DEV", "ECATIO")
 epicsEnvSet("ECMC_PREFIX" ,"${SYS}-${SUB}:${DIS}-${DEV}-${IDX}:")
 ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=${ECMC_EC_SLAVE_NUM}, HW_DESC=EL1252"
@@ -88,16 +86,15 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=${ECMC_EC_SLAVE_NUM}, HW_DES
 # Configure EL9410 Power supply with refresh of E-Bus.
 ecmcEpicsEnvSetCalc(ECMC_EC_SLAVE_NUM, "${ECMC_EC_SLAVE_NUM}+1")
 epicsEnvSet(ECMC_EC_SLAVE_NUM,${ECMC_EC_SLAVE_NUM=0})
-ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}")
+ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}",%03d)
 epicsEnvSet("DEV", "ECATIO")
 epicsEnvSet("ECMC_PREFIX" ,"${SYS}-${SUB}:${DIS}-${DEV}-${IDX}:")
 ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=${ECMC_EC_SLAVE_NUM}, HW_DESC=EL9410"
 
-
 #Configure EL7037 stepper drive terminal, motor 1
 ecmcEpicsEnvSetCalc(ECMC_EC_SLAVE_NUM, "${ECMC_EC_SLAVE_NUM}+1")
 epicsEnvSet(ECMC_EC_SLAVE_NUM,${ECMC_EC_SLAVE_NUM=0})
-ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}")
+ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}",%03d)
 epicsEnvSet("DEV", "ECATIO")
 epicsEnvSet("ECMC_PREFIX" ,"${SYS}-${SUB}:${DIS}-${DEV}-${IDX}:")
 ${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=${ECMC_EC_SLAVE_NUM}, HW_DESC=EL7037, CONFIG=-Motor-Nanotec-ST4118L1804-B, CFG_MACROS='I_RUN_MA=900,I_STDBY_MA=200'"
@@ -105,7 +102,7 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=${ECMC_EC_SLAVE_NUM}, 
 #Configure EL7037 stepper drive terminal, motor 2
 ecmcEpicsEnvSetCalc(ECMC_EC_SLAVE_NUM, "${ECMC_EC_SLAVE_NUM}+1")
 epicsEnvSet(ECMC_EC_SLAVE_NUM,${ECMC_EC_SLAVE_NUM=0})
-ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}")
+ecmcEpicsEnvSetCalc("IDX", "${ECMC_EC_SLAVE_NUM=0}",%03d)
 epicsEnvSet("DEV", "ECATIO")
 epicsEnvSet("ECMC_PREFIX" ,"${SYS}-${SUB}:${DIS}-${DEV}-${IDX}:")
 ${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=${ECMC_EC_SLAVE_NUM}, HW_DESC=EL7037, CONFIG=-Motor-Nanotec-ST4118L1804-B"
@@ -131,7 +128,7 @@ ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},BO_8,1)"
 #epicsEnvSet("DEV",      "$(IOC)")
 
 epicsEnvSet(ECMC_EC_SLAVE_NUM,${ECMC_EC_SLAVE_NUM=0})
-ecmcEpicsEnvSetCalc("IDX", "0")
+ecmcEpicsEnvSetCalc("IDX", "000",%03d)
 epicsEnvSet("DEV", "SLIT")
 epicsEnvSet("DEV" ,"${SYS}-${SUB}:${DIS}-${DEV}-${IDX}")
 $(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/linear_1.ax)
@@ -140,7 +137,7 @@ $(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/linear_1.ax)
 ## AXIS 2
 #
 #epicsEnvSet("DEV",      "$(IOC)")
-ecmcEpicsEnvSetCalc("IDX", "0")
+ecmcEpicsEnvSetCalc("IDX", "000",%03d)
 epicsEnvSet("DEV", "SLIT")
 epicsEnvSet("DEV" ,"${SYS}-${SUB}:${DIS}-${DEV}-${IDX}")
 $(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/linear_2.ax)
@@ -156,8 +153,7 @@ ecmcConfigOrDie "Cfg.SetDiagAxisFreq(2)"
 ecmcConfigOrDie "Cfg.SetDiagAxisEnable(0)"
 
 # naming
-
-ecmcEpicsEnvSetCalc("IDX", "0")
+ecmcEpicsEnvSetCalc("IDX", "000",%03d)
 epicsEnvSet("DEV", "ECMC")
 epicsEnvSet("ECMC_PREFIX" ,"${SYS}-${SUB}:${DIS}-${DEV}-${IDX}:")
 
