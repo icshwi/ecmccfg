@@ -26,9 +26,9 @@ $(ECMCCFG_INIT)$(SCRIPTEXEC) ${ecmccfg_DIR}startup.cmd, "IOC=$(IOC),ECMC_VER=dev
 ##############################################################################
 ## Config hardware:
 
-#epicsEnvSet("ECMC_EC_SLAVE_NUM",              "0")
-#${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=$(ECMC_EC_SLAVE_NUM), HW_DESC=EK1100"
-
+# Note NELM equals oversampling factor in this case
+epicsEnvSet("ECMC_EC_SLAVE_NUM",              "0")
+${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=$(ECMC_EC_SLAVE_NUM), HW_DESC=EKM1101"
 
 # Note NELM equals oversampling factor in this case
 epicsEnvSet("ECMC_EC_SLAVE_NUM",              "1")
