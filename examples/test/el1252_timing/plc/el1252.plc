@@ -1,0 +1,32 @@
+###############################################################################################
+# For help on syntax, variables and functions, please read the file: "plcSyntaxHelp.plc"
+#
+
+if(ec0.s${SLAVE_ID}.CH1_LATCH_POS!=static.oldCh1PosTime) {
+  static.timeSinceLast:= (ec0.s${SLAVE_ID}.CH1_LATCH_POS-static.oldCh1PosTime); 
+  println('');
+  println('New latched positive edge [ns]: ', ec0.s${SLAVE_ID}.CH1_LATCH_POS);
+  println('    Time since last latch [ns]: ',static.timeSinceLast );
+  println('                          [ms]: ', static.timeSinceLast/1E6);
+  println('    Frequency             [Hz]: ', 1e9/(static.timeSinceLast));  
+};
+
+static.oldCh1PosTime:=ec0.s${SLAVE_ID}.CH1_LATCH_POS;
+
+static.time:=ec_get_time_l32()/1E6;
+static.reftime:=ec_get_ref_time_l32()/1E6;
+static.sendtime:=ec_get_send_time_l32()/1E6;
+
+#if(static.counter>=10) {
+  println('    EC_GET_TIME()      [ms]: ', static.time);
+  println('    EC_GET_REF_TIME()  [ms]: ', static.reftime);
+  println('    EC_GET_SEND_TIME() [ms]: ', static.sendtime);
+  println('    DIFF(ref-time)     [ms]: ', static.reftime-static.time);
+  #println('    DIFF(ref-s0end)     [ms]: ', static.reftime-static.sendtime);
+  println('    DIFF(ref-send)     [ms]: ', ec_get_ref_vs_send_time_l32());
+  #println('    COUNT()            [ms]: ', static.counter);
+  
+  println('----------------------------------------------');
+#  static.counter:=0;
+#};
+static.counter+=1;
