@@ -1,0 +1,37 @@
+##############################################################################
+## Example: Demo of ecmc SocketCAN plugin
+## https://github.com/anderssandstrom/e3-ecmc_plugin_socketcan
+##
+## The plugin exposes:
+##
+
+## Initiation:
+epicsEnvSet("IOC" ,"$(IOC="IOC_TEST")")
+epicsEnvSet("ECMCCFG_INIT" ,"")  #Only run startup once (auto at PSI, need call at ESS), variable set to "#" in startup.cmd
+epicsEnvSet("SCRIPTEXEC" ,"$(SCRIPTEXEC="iocshLoad")")
+
+require ecmccfg develop
+
+# run module startup.cmd (only needed at ESS  PSI auto call at require)
+$(ECMCCFG_INIT)$(SCRIPTEXEC) ${ecmccfg_DIR}startup.cmd, "IOC=$(IOC),ECMC_VER=master,MASTER_ID=-1"
+
+##############################################################################
+## Configure hardware:
+# No EtherCAT hardware (in this example)..
+
+##############################################################################
+## Load plugin:
+#require ecmc_plugin_advanced master # do not require then loaded twice..
+
+epicsEnvSet(ECMC_PLUGIN_FILNAME,"/home/pi/epics/base-7.0.4/require/3.3.0/siteMods/ecmc_plugin_socketcan/master/lib/${EPICS_HOST_ARCH=linux-x86_64}/libecmc_plugin_socketcan.so")
+epicsEnvSet(ECMC_PLUGIN_CONFIG,"DBG_PRINT=1;") # Only one option implemented in this plugin
+${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILNAME},CONFIG='${ECMC_PLUGIN_CONFIG}', REPORT=1"
+epicsEnvUnset(ECMC_PLUGIN_FILNAME)
+epicsEnvUnset(ECMC_PLUGIN_CONFIG)
+
+##############################################################################
+############# Go to realtime:
+
+ecmcConfigOrDie "Cfg.SetAppMode(1)"
+iocInit
+dbl > pvs.log
