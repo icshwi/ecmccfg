@@ -30,6 +30,10 @@ epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 
 ##############################################################################
+## PLC 0
+$(SCRIPTEXEC) $(ecmccfg_DIR)loadPLCFile.cmd, "PLC_ID=0, SAMPLE_RATE_MS=1000,FILE=./plc/can.plc")
+
+##############################################################################
 ############# Go to realtime:
 
 ecmcConfigOrDie "Cfg.SetAppMode(1)"
