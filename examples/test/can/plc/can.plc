@@ -18,12 +18,71 @@ can_add_write(128,0,0,0,0,0,0,0,0,0);
 # can0  0x7E5   [0]
 can_add_write(2021,0,0,0,0,0,0,0,0,0);
 
-if(not(can_write_busy())) {
-  can_trigg_writes();
-  if(can_last_writes_error()) {
+can_trigg_writes();
+if(can_last_writes_error()) {
     println('Error during writes : ', can_last_writes_error());
-  }
 };
+
+return [];
+
+var byte0:=0;
+## WRONG BIT ORDER OTHER WAY AROUND!
+## bit 0..2:  ccs 1 for 
+#
+#byte0:= ec_wrt_bits(byte0,1,0,2);
+## bit 3: reserved = 0
+#byte0:= ec_clr_bit(byte0,3);
+## bit 4..5: n = 0
+#byte0:= ec_wrt_bits(byte0,0,4,5);
+## bit 6: e = 0
+#byte0:= ec_clr_bit(byte0,6);
+## bit 7: e = 0
+#byte0:= ec_clr_bit(byte0,7);
+
+# Read dictionary command 0x40 = 64
+byte0 := 65
+
+# byte 1..2: SDO id: 0x2690  = 9792 dec
+var byte1:= ec_chk_bits(9792,0,7);
+var byte2:= ec_chk_bits(9792,8,15);
+
+# byte 3: SDO subindex = 0x0
+var byte3:=0;
+
+# byte 4:7: data length = 56 bytes
+#var dataLen:=56;
+#var byte4:= ec_chk_bits(dataLen,0,7);
+#var byte5:= ec_chk_bits(dataLen,8,15);
+#var byte6:= ec_chk_bits(dataLen,16,23);
+#var byte7:= ec_chk_bits(dataLen,24,31);
+#can_add_write(1539,8,byte0,byte1,byte2,byte3,byte4,byte5,byte6,byte7);
+
+#can_add_write(1539,8,byte0,byte1,byte2,byte3,0,0,0,0);
+can_add_write(1539,8,64,byte1,byte2,byte3,0,0,0,0);
+
+# Acknowledge 1 toggle 0
+can_add_write(1539,8,97,byte1,byte2,byte3,0,0,0,0);
+
+# Acknowledge 2 toggle 1
+can_add_write(1539,8,113,byte1,byte2,byte3,0,0,0,0);
+
+# Acknowledge 3 toggle 0
+can_add_write(1539,8,97,byte1,byte2,byte3,0,0,0,0);
+
+# Acknowledge 4 toggle 1
+can_add_write(1539,8,113,byte1,byte2,byte3,0,0,0,0);
+
+# Acknowledge 5 toggle 0
+can_add_write(1539,8,97,byte1,byte2,byte3,0,0,0,0);
+
+# Acknowledge 6 toggle 1
+can_add_write(1539,8,113,byte1,byte2,byte3,0,0,0,0);
+
+# Acknowledge 7 toggle 0  LAST
+can_add_write(1539,8,97,byte1,byte2,byte3,0,0,0,0);
+
+# Acknowledge 6 toggle 1 Test one to much..  just resulted in one more row of unique data?!
+# can_add_write(1539,8,113,byte1,byte2,byte3,0,0,0,0);
 
 println('Total time for one plcscan [ms]: ', (ec_get_time()-static.time)/1E6);
 return [];
