@@ -7,22 +7,22 @@ static.time:=ec_get_time();
 
 # Test heartbeat signal
 #   can0  0x701   [1]  05
-can_add_write(1793,1,5,0,0,0,0,0,0,0);
+#can_add_write(1793,1,5,0,0,0,0,0,0,0);
 
 # Test sync signal
 # can0  0x80   [0]
 
-can_add_write(128,0,0,0,0,0,0,0,0,0);
+#can_add_write(128,0,0,0,0,0,0,0,0,0);
 
 # Test LSS heartbeat "master" signal. This makes the led on pmu905 to go to "Normal Communication"
 # can0  0x7E5   [0]
-can_add_write(2021,0,0,0,0,0,0,0,0,0);
+# can_add_write(2021,0,0,0,0,0,0,0,0,0);
 
 #can_trigg_writes();
 if(can_last_writes_error()) {
     println('Error during writes : ', can_last_writes_error());
 };
-println('Total time for one plcscan [ms]: ', (ec_get_time()-static.time)/1E6);
+#println('Total time for one plcscan [ms]: ', (ec_get_time()-static.time)/1E6);
 
 
 return [];
