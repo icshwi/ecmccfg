@@ -18,10 +18,12 @@ can_add_write(128,0,0,0,0,0,0,0,0,0);
 # can0  0x7E5   [0]
 can_add_write(2021,0,0,0,0,0,0,0,0,0);
 
-can_trigg_writes();
+#can_trigg_writes();
 if(can_last_writes_error()) {
     println('Error during writes : ', can_last_writes_error());
 };
+println('Total time for one plcscan [ms]: ', (ec_get_time()-static.time)/1E6);
+
 
 return [];
 
