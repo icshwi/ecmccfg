@@ -18,7 +18,7 @@ $(ECMCCFG_INIT)$(SCRIPTEXEC) ${ecmccfg_DIR}startup.cmd, "IOC=$(IOC),ECMC_VER=6.3
 epicsEnvSet("ECMC_EC_SLAVE_NUM",              "0")
 ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=$(ECMC_EC_SLAVE_NUM), HW_DESC=EK1100"
 
-epicsEnvSet("ECMC_EC_SLAVE_NUM",              "0")
+epicsEnvSet("ECMC_EC_SLAVE_NUM",              "1")
 ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=$(ECMC_EC_SLAVE_NUM), HW_DESC=EL1088"
 
 #Apply hardware configuration
